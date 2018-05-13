@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Tree :initData="data" :nodeSvgShapeAttr="nodeSvgShapeAttr" :translate="translate"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import './style/index.scss'
+import Tree from './components/Tree'
+import treeData from './mock/mockData'
 export default {
   name: 'app',
+  data() {
+    return {
+      data: treeData,
+      nodeSvgShapeAttr: {
+        r: 20,
+        fill: 'orange'
+      },
+      translate: {
+        x: 700,
+        y: 30
+      }
+    }
+  },
   components: {
-    HelloWorld
+    Tree
   }
 }
 </script>
-
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
