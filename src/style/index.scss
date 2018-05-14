@@ -1,6 +1,7 @@
-body {
+* {
     padding: 0;
     margin: 0;
+    line-height: 2;
 }
 
 html,
@@ -14,8 +15,38 @@ body,
     width: 100%;
     height: 100%;
 }
+.vue-tree-grabbable {
+    cursor: move;
+    cursor: grab;
+    &:active{
+        cursor: grabbing;
+    }
+}
 
 .vue-tree-link-base {
     fill: none;
     stroke: #000;
+    stroke-width: 2px;
+}
+
+
+
+
+// extra
+.base-node{
+    box-sizing: border-box;
+    padding: 20px;
+    width: 200px;
+    height: 100px;
+    color: #666;
+    font-size: 13px;
+    font-weight: 300;
+    font-family: microsoft yahei;
+    background: #fff;
+    border: 2px solid orange;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover{
+        cursor: default;
+    }
 }

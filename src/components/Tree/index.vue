@@ -1,42 +1,39 @@
 <template>
   <div :class="['vue-tree-container',{'vue-tree-grabbable':zoomable}]"
-  >
-<div v-for="item in data" :key="item.id">
-  {{ item.name }}  {{ item._collapsed }}
-  <div v-for="node in item.children" :key="node.id">
-    {{ node.name }}  {{ node._collapsed }}
-  </div>
-</div>
-
-    <svg :class="svgCls" width="100%" height="100%">
-      <g :class="gCls"
+  >  
+    <svg :ref="svgRef" width="100%" height="100%">
+      <transition>
+        <g :ref="gRef"
          :transform="`translate(${translate.x},${translate.y}) scale(${scale})`"
-      >
+        >
       
-      <Link v-for="(link,index) in tree.links" :key="index"
-        :orientation="orientation"
-        :linkData="link"
-        :transitionDuration="transitionDuration"
-      />
-
-      <Node v-for="node in tree.nodes" :key="node.data.id"
-          :nodeData="node"
-          :nodeSize="nodeSize"
-          :transitionDuration="transitionDuration"
+        <Link v-for="(link,index) in tree.links" :key="index"
           :orientation="orientation"
-          :nodeSvgShape="nodeSvgShape"
-          :nodeSvgShapeAttr="nodeSvgShapeAttr"
-          @handleNodeToggle="handleNodeToggle"
-      />
-      
-      </g>
+          :linkData="link"
+          :transitionDuration="transitionDuration"
+        />
+
+        <Node v-for="node in tree.nodes" :key="node.data.id"
+            :nodeData="node"
+            :nodeSize="nodeSize"
+            :transitionDuration="transitionDuration"
+            :orientation="orientation"
+            :nodeSvgShape="nodeSvgShape"
+            :nodeSvgShapeAttr="nodeSvgShapeAttr"
+            :allowForeignObjects="allowForeignObjects"
+            :renderForeignObjects="renderForeignObjects"
+            @handleNodeToggle="handleNodeToggle"
+        />
+
+        </g>
+      </transition>
     </svg>
   </div>
 </template>
 
 <script>
 import uuid from 'uuid'
-import { tree , hierarchy } from 'd3'
+import { tree , hierarchy, select ,event, zoom } from 'd3'
 import { oneOf, typeOf } from '@/utils/assist'
 import { assignProperties } from '@/utils/dataHelper'
 import Link from '../Link'
@@ -82,8 +79,8 @@ export default {
       type: Object,
       default(){
         return{
-         x: 100,
-         y: 200         
+         x: 200,
+         y: 100         
         }
       }
     },
@@ -99,6 +96,13 @@ export default {
     zoomable: {
       type: Boolean,
       default: true
+    },
+    zoom: 1,
+    scaleExtent:{
+      type: Object,
+      default(){
+        return { min: 0.1, max: 1 }
+      }
     },
     translate: {
       type: Object,
@@ -119,12 +123,19 @@ export default {
     transitionDuration: {
       type : Number,
       default: 500
+    },
+    allowForeignObjects: Boolean,
+    renderForeignObjects: {
+      type: Function,
+      default () {
+          return '';
+      }
     }
   },
   data() {
     return {
-      svgCls: uuid.v4(),
-      gCls: uuid.v4(),
+      svgRef: uuid.v4(),
+      gRef: uuid.v4(),
       data: assignProperties(this.initData),
       nodes: [],
       links: []
@@ -153,7 +164,28 @@ export default {
       return {nodes,links}
     }
   },
+  watch:{
+    initData(val){
+      this.data = assignProperties(val)
+    }
+  },
   methods: {
+    bindZoomListener(){
+      const svg = select(this.$refs[this.svgRef]);
+      const g = select(this.$refs[this.gRef]);
+
+      if(this.zoomable){
+        svg.call(
+            zoom()
+            .scaleExtent([this.scaleExtent.min, this.scaleExtent.max])
+            .on('zoom', () => {
+              const [lastX,lastY] = [this.translate.x, this.translate.y]
+              const {x,y,k} = event.transform;
+              g.attr('transform', `translate(${lastX + x},${lastY + y}) scale(${k})`);
+            })
+        )
+      }
+    },
     setInitialTreeDepth(nodeSet, initialDepth) {
       nodeSet.forEach(n => {
         n._collapsed = n.depth >= initialDepth;
@@ -209,8 +241,13 @@ export default {
 
       return hits;
     },
+    update(){
+      
+    }
   },
   mounted(){
+    this.bindZoomListener()
+    console.log(this.root)
   }
 }
 </script>
