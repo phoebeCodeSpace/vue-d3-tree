@@ -53,3 +53,10 @@ export const deepCopy = (data) => {
     }
     return o;
 }
+
+/**
+ * @description 随机生成字符串
+ */
+export const uniqueId = () => {
+    return Math.random().toString(36).substring(7)
+}

@@ -1,0 +1,51 @@
+$contextmenu: v-contextmenu;
+.#{$contextmenu}{
+  &-wrap{
+    position: fixed;
+    background: #FFF;
+    padding: 4px 0;
+    box-shadow: 0 2px 4px 0 #A4AAB3;
+    border-radius: 4px;   
+  }
+  &-item{
+    padding: 0 30px;
+    line-height: 36px;
+    color: $--color-text-regular;
+    cursor: pointer;
+    transition: all linear .1s;
+    &:not(&--disabled):hover {
+      color: $--theme-color;
+      background-color: $--theme-active-color;
+    }
+    &--divider{
+      width: 100%;
+      height: 1px;
+      background-color: #ececec;
+      margin: 4px 0;
+    }
+    &--disabled{
+      color: $--color-text-disabled;
+      cursor: not-allowed;
+    }
+  }
+
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .15s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+// example
+.well{
+  background-color: #4d4e4e;
+  padding: 30px;
+  width: 100%;
+  border-radius: 5px;
+  color: #fff;
+  text-align: center;
+  margin:  20px;
+}

@@ -44,6 +44,9 @@ const treeData = [{
                 {
                     name: 'Daughter of B',
                 },
+                {
+                    name: 'Daughter of C',
+                },
             ],
         },
     ],
