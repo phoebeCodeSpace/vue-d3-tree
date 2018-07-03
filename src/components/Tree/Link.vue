@@ -9,6 +9,9 @@
 
 <script>
 import { select } from "d3";
+import {
+    typeOf
+} from '@/utils/assist'
 export default {
   name: "Link",
   props: [
@@ -16,7 +19,8 @@ export default {
     "orientation",
     "nodeSize",
     "linkData",
-    "transitionDuration"
+    "transitionDuration",
+    "deepFactor"
   ],
   data() {
     return {
@@ -58,7 +62,8 @@ export default {
       }
       return end;
     },
-    other() {
+    // fish
+    fish() {
       let path = ''
       const [sx, sy] = [this.startPoint.x, this.startPoint.y]
       const [px, py] = [this.endPoint.x, this.endPoint.y]
@@ -72,12 +77,12 @@ export default {
         if (dx < -10) {
           factor = -1
         }
-        const dt = (py - sy) / 2        
+        const dt = (py - sy) / 2 / this.deepFactor
         path =
         'M' + sx + ',' + sy +
         'Q' + sx + ',' + (sy + dt ) +
-        ' ' + (sx + dt * factor) + ',' + (sy + dt) +
-        'L' + (px - dt * factor) + ',' + (sy + dt) +
+        ' ' + (sx + dt * factor / this.deepFactor) + ',' + (sy + dt) +
+        'L' + (px - dt * factor / this.deepFactor) + ',' + (sy + dt) +
         'Q' + (px) + ',' + (sy + dt ) +
         ' ' + px + ',' + py
       }
@@ -88,12 +93,12 @@ export default {
         if (dy < -10) {
           factor = -1
         }
-        const dt = (px - sx) / 2
+        const dt = (px - sx) / 2 / this.deepFactor
         path =
         'M' + sx + ',' + sy +
         'Q' + (px - dt) + ',' + sy +
-        ' ' + (px - dt)+ ',' + (sy + dt * factor) +
-        'L' + (px - dt) + ',' + (py - dt * factor) +
+        ' ' + (px - dt)+ ',' + (sy + dt * factor / this.deepFactor) +
+        'L' + (px - dt) + ',' + (py - dt * factor / this.deepFactor) +
         'Q' + (px - dt ) + ',' + py +
         ' ' + px + ',' + py
       }
@@ -165,9 +170,14 @@ export default {
         this.startPoint.y;
       return path;
     },
-    // 
     linkPath() {
-      return this[this.pathFunc]
+      if(typeOf(this.pathFunc) === 'string'){
+        return this[this.pathFunc]
+      }
+      if(typeOf(this.pathFunc) === 'function'){
+        return this.pathFunc(this.linkData, this.startPoint, this.endPoint)
+      }
+      new Error('linkPath 为 string 或 function')
     }
   },
   methods: {
@@ -188,9 +198,6 @@ export default {
   mounted() {
     this.applyOpacity();
   },
-  // beforeUpdate () {
-  //   this.applyOpacity()
-  // },
   beforeDestroy() {
     this.applyOpacity(0);
   }

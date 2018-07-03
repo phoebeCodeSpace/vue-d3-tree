@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <!-- 工具栏 -->
-
+    <div class="tree-toolbar">
+      
+    </div>
     <!-- 流程图 -->
     <div class="tree-progress">
       <Tree 
         ref="treeContainer"
         :initData="data"
         :translate="translate"
+        pathFunc="fish"
       >
       <template slot-scope="scope">
-        <div class="base-node">
+        <div class="base-node" @click="handleClick(scope)">
           <p>{{scope.name}}</p>
         </div>
       </template>
@@ -37,7 +40,6 @@ import Tree from './components/Tree/Tree'
 import ContextMenu from './components/ContextMenu/ContextMenu.vue'
 import ContextMenuItem from './components/ContextMenu/ContextMenuItem.vue'
 import treeData from './mock/mockData'
-// import { removeData } from './utils/dataHelper'
 export default {
   name: 'app',
   data() {
@@ -62,6 +64,19 @@ export default {
         y: 100
       }
     },
+    handleClick(scope){
+      console.log(scope)
+    },
+    pathFunc(linkData, start , end){
+      return  "M" +
+        end.x +
+        "," +
+        end.y +
+        " " +
+        start.x +
+        "," +
+        start.y;
+    }
     // renderForeignObjects(createElement,nodeData) {
     //   const self = this;
     //   return createElement('div',{

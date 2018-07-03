@@ -11,23 +11,19 @@ export const treeProps = {
         },
         orientation: {
             type: String,
-            // default: 'horizontal',
-            default: 'vertical',
+            default: 'horizontal',
+            // default: 'vertical',
             validator(value) {
                 return oneOf(value, ['horizontal', 'vertical'])
             }
         },
-        // distanceXFactor: {
-        //   type: Number,
-        //   default: 1
-        // },
-        deepFactor: {
-          type: Number,
-          default: 1.3
-        },
         collapsible: {
             type: Boolean,
             default: true
+        },        
+        deepFactor: {
+          type: Number,
+          default: 1.3
         },
         nodeSvgShape: {
             type: String,
@@ -42,7 +38,7 @@ export const treeProps = {
             }
         },
         pathFunc: {
-            default: 'diagonal'
+            default: 'fish'
         },
         nodeSize: {
             type: Object,
@@ -96,7 +92,10 @@ export const treeProps = {
             type: Number,
             default: 500
         },
-        allowForeignObjects: Boolean,
+        allowForeignObjects: {
+            type: Boolean,
+            default: true
+        },
         renderForeignObjects: {
             type: Function,
             default () {

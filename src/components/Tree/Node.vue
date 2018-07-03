@@ -39,12 +39,12 @@ export default {
     "transitionDuration",
     "orientation",
     "allowForeignObjects",
-    "renderForeignObjects"
+    "renderForeignObjects",
   ],
   watch: {
     nodeData: {
       handler() {
-        this.setTransform();
+        this.setTransform(this.nodeData);
       }
     }
   },
@@ -73,10 +73,8 @@ export default {
     //     nodeEl.attr(item[0], item[1]);
     //   });
     // },
-    setTransform() {
-      const x = this.nodeData.x,
-        y = this.nodeData.y;
-      // const [parentX,parentY] = [this.nodeData.parent.x, this.nodeData.parent.y]
+    setTransform(data) {
+      const { x, y } = data;
       const transform =
         this.orientation === "horizontal"
           ? `translate(${y},${x})`
@@ -120,8 +118,12 @@ export default {
     }
   },
   mounted() {
-    this.setTransform();
-    // console.log(this.nodeData);
+    this.setTransform(this.nodeData);
+  },
+  beforeDestroy() {
+    const data = this.nodeData.parent ? this.nodeData.parent : { x: 0, y: 0 };
+    const transform = this.setTransform(data);
+    this.applyTransform(transform);
   }
 };
 </script>

@@ -12,6 +12,7 @@
           :linkData="link"
           :nodeSize="nodeSize"
           :transitionDuration="transitionDuration"
+          :deepFactor="deepFactor"
         />
 
         <Node v-for="node in tree.nodes" :key="node.data.id"
@@ -23,7 +24,8 @@
             :nodeSvgShapeAttr="nodeSvgShapeAttr"
             :allowForeignObjects="allowForeignObjects"
             :renderForeignObjects="renderForeignObjects"
-            @handleNodeToggle="handleNodeToggle"/>
+            @handleNodeToggle="handleNodeToggle"
+        />
         </g>
       </transition>
     </svg>
@@ -51,10 +53,10 @@ export default {
   props: props.treeProps,
   data() {
     return {
-      viewPort: {
-        width: 1000,
-        height: 500
-      },
+      // viewPort: {
+      //   width: 1000,
+      //   height: 500
+      // },
       svgRef: uniqueId(),
       gRef: uniqueId(),
       data: assignProperties(this.initData),
@@ -67,7 +69,7 @@ export default {
       // tree layout
       const { x, y } = this.nodeSize;
       const treemap = tree()
-        .size([this.viewPort.width, this.viewPort.height])
+        // .size([this.viewPort.width, this.viewPort.height])
         .nodeSize(this.orientation === "horizontal" ? [y, x] : [x, y])
         .separation(
           (a, b) =>
@@ -152,11 +154,9 @@ export default {
     },
     expandNode(node) {
       node._collapsed = false;
-      node.children = node._children;
     },
     collapseNode(node) {
       node._collapsed = true;
-      node.children = null;
       if (node._children && node._children.length > 0) {
         node._children.forEach(child => {
           this.collapseNode(child);
