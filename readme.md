@@ -2,12 +2,12 @@
 
 ⚠️ 兼容性：
 
-- IE 不兼容
+- IE 不兼容 [foreignObject](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject)
 
 ## 实例
 
-[在线实例](https://phoebecodespace.github.io/vue-d3-tree/)
-[]()
+[在线预览](https://phoebecodespace.github.io/vue-d3-tree/)
+[动图预览](https://github.com/phoebeCodeSpace/vue-d3-tree/blob/master/examples/assets/demo.gif)
 
 ## 实现功能
 
@@ -75,7 +75,7 @@ pathFunc | 连接样式，可选值为 `straight` 直角 / `diagonal` 曲线 / `
 
 ## scope 格式
 
-``` json
+``` bash
 NODE {
   children: [],   # 子节点集合
   data: {},       # 节点数据
