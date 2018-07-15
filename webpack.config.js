@@ -10,7 +10,9 @@ module.exports = (env, argv) => {
     const devMode = argv.mode !== 'production'
     return {
         entry: path.join(__dirname, './examples/main.js'),
-        output: path.join(__dirname, './examples/main.js'),
+        output: {
+            path: path.resolve(__dirname, 'docs'),
+        },
         module: {
             rules: [{
                     test: /\.vue$/,
@@ -59,7 +61,7 @@ module.exports = (env, argv) => {
             }
         },
         plugins: [
-            new CleanWebpackPlugin(['dist']),
+            new CleanWebpackPlugin(['docs']),
             new HtmlWebPackPlugin({
                 template: "./examples/index.html",
                 filename: "./index.html"
