@@ -12,6 +12,7 @@ module.exports = (env, argv) => {
         entry: path.join(__dirname, './examples/main.js'),
         output: {
             path: path.resolve(__dirname, 'docs'),
+            publicPath: '/vue-d3-tree/'
         },
         module: {
             rules: [{
