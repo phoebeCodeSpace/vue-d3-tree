@@ -1,0 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+a {
+    color: #333;
+    line-height: 20px;
+    text-decoration: none;
+    &:hover{
+        color: #fc5c7d;
+    }
+}
+
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+}
+// example
+.tree-progress{
+  width: 1200px;
+  margin:  10px auto;
+  height: 800px;
+  background: #FCFCFC;
+  border: 1px solid #D7DBE6;
+  border-radius: 3px;
+}
+.base-node {
+    box-sizing: border-box;
+    padding: 10px;
+    color: #666;
+    font-size: 13px;
+    font-weight: 300;
+    font-family: microsoft yahei;
+    background: #fff;
+    border: 1px solid #D8DCE5;
+    border-radius: 3px;
+    cursor: pointer;
+    &:hover {
+        cursor: default;
+    }
+}
+// salad
+.salad-root{
+    margin-top: 58px;
+    font-weight: bold;
+    font-size: 18px;
+}
+.salad {
+    width: 240px;
+    height: 160px;
+    .illustration{
+        width: 100%;
+        height: 120px;
+        overflow: hidden;
+        border-radius: 5px;
+        img {
+            width: 100%;
+        }
+    }
+
+}
+
+// member
+.member{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 80px;
+    .photo{
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+        border: 1px solid #ddd;
+        margin-right: 10px;
+        img {
+            width: 100%;
+        }
+    }
+    .describe{
+        flex: 1;
+        .name{
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 16px;
+        }
+        .title{
+            color: #999;
+        }
+    }
+}

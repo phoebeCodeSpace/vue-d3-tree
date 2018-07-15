@@ -10,10 +10,6 @@
       :width="nodeSize.x" :height="nodeSize.y"
     >
       <ForeignObjectElement/>
-      <!-- <ForeignObjectElement v-if="allowForeignObjects"
-        :nodeData="nodeData"
-        :renderForeignObjects="renderForeignObjects"
-      /> -->
     </foreignObject>
     <g :transform="collapseIcon" v-if="nodeData.data._children" @click="handleClick" class="v-tree__collapse-icon">
       <circle r="8"></circle>

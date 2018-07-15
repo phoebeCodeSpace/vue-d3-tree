@@ -39,30 +39,3 @@ $tree: v-tree;
 }
 
 
-// example
-.tree-progress{
-  width: 1200px;
-  margin:  50px auto;
-  height: 800px;
-  background: #FCFCFC;
-  border: 1px solid #D7DBE6;
-  border-radius: 3px;
-}
-.base-node {
-    box-sizing: border-box;
-    padding: 20px;
-    width: 200px;
-    height: 80px;
-    color: #666;
-    font-size: 13px;
-    font-weight: 300;
-    font-family: microsoft yahei;
-    background: #fff;
-    border: 1px solid #D8DCE5;
-    border-radius: 4px;
-    cursor: pointer;
-    &:hover {
-        cursor: default;
-    }
-}
-

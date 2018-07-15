@@ -34,13 +34,13 @@
 
 <script>
 import { tree, hierarchy, select, event, zoom } from "d3";
-import { uniqueId } from "@/utils/assist";
-import { assignProperties } from "@/utils/dataHelper";
-import * as props from "@/utils/propsValidate";
-import Link from "./Link";
-import Node from "./Node";
+import { uniqueId } from "../utils/assist";
+import { assignProperties } from "../utils/dataHelper";
+import * as props from "../utils/propsValidate";
+import Link from "./Link.vue";
+import Node from "./Node.vue";
 export default {
-  name: "tree",
+  name: "Tree",
   provide() {
     return {
       $$tree: this
@@ -53,10 +53,6 @@ export default {
   props: props.treeProps,
   data() {
     return {
-      // viewPort: {
-      //   width: 1000,
-      //   height: 500
-      // },
       svgRef: uniqueId(),
       gRef: uniqueId(),
       data: assignProperties(this.initData),
@@ -94,7 +90,9 @@ export default {
       });
       const links = treeData.descendants().slice(1);
       nodes.forEach(node => {
-        node.y = node.y * this.deepFactor;
+        this.orientation === "horizontal" ?
+        node.y = node.y * (1 / this.deepFactor) :
+        node.y = node.y * this.deepFactor
       });
       return { nodes, links };
     }
@@ -114,8 +112,9 @@ export default {
           zoom()
             .scaleExtent([this.scaleExtent.min, this.scaleExtent.max])
             .on("zoom", () => {
+              // TODO: 当scale !== 1 时，首次触发zoom会有bug
               const [lastX, lastY] = [this.translate.x, this.translate.y];
-              const { x, y, k } = event.transform;
+              const { x, y, k} = event.transform;
               g.attr(
                 "transform",
                 `translate(${lastX + x},${lastY + y}) scale(${k})`

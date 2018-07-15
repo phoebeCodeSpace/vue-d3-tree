@@ -11,7 +11,7 @@
 import { select } from "d3";
 import {
     typeOf
-} from '@/utils/assist'
+} from '../utils/assist'
 export default {
   name: "Link",
   props: [

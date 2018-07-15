@@ -1,8 +1,12 @@
 # tree 🌲
 
+⚠️ 兼容性：
+
+- IE 不兼容
+
 ## 实现功能
 
-### Tree 功能
+### Tree 功能
 
 - [x] tree orientation ：horizontal 、vertical
 - [x] tree collapsible
@@ -39,14 +43,28 @@ transitionDuration | 动画时间（毫秒） | 500 | Number
 参数 | 说明 | 默认值 | 类型
 ---|---|---|---
 nodeSize： | 节点大小 | `{x: 200,y: 80}` | Object
-separation | 节点间距离，`siblings` 控制兄弟节点之间的距离，`nonSiblings` 控制同一父节点非兄弟节点之间的距离 | `{siblings: 1,nonSiblings: 1}` | Object
-deepFactor | 节点间距离，控制父子级间的节点距离（⚠️ orientation 为 `horizontal` 时建议设置为 **1.3**，orientation 为 `vertical` 时建议设置为 **0.75**） | Number | 1.3
+separation | 节点间距离，`siblings` 控制兄弟节点之间的距离，`nonSiblings` 控制同一父节点非兄弟节点之间的距离，距离为 `nodeSize.x` 的倍数，建议取 **1-2** 之间 | `{siblings: 1.2,nonSiblings: 1.2}` | Object
+deepFactor | 节点间距离，控制父子级间的节点距离（⚠️ orientation 为 `horizontal` 时 deepFactor 越大距离越小，，orientation 为 `vertical` 时距离越大距离越大） | Number | 0.65
 
 ### Link
 
 参数 | 说明 | 默认值 | 类型
 ---|---|---|---
 pathFunc | 连接样式，可选值为 `straight` 直角 / `diagonal` 曲线 / `fish` 鱼钩线 | `diagonal` |  String / Function
+
+## scope 格式
+
+``` json
+NODE {
+  children: [],
+  data: {},
+  depth:0,
+  height:1,
+  parent:null,
+  x:0,
+  y:0
+}
+```
 
 ## 使用方法
 

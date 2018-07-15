@@ -1,7 +1,7 @@
 import {
     oneOf,
     typeOf
-} from '@/utils/assist'
+} from './assist'
 
 
 export const treeProps = {
@@ -23,7 +23,7 @@ export const treeProps = {
         },        
         deepFactor: {
           type: Number,
-          default: 1.3
+          default: 0.65
         },
         nodeSvgShape: {
             type: String,
@@ -53,8 +53,8 @@ export const treeProps = {
             type: Object,
             default () {
                 return {
-                    siblings: 1,
-                    nonSiblings: 1
+                    siblings: 1.2,
+                    nonSiblings: 1.2
                 }
             }
         },
