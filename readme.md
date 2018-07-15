@@ -6,8 +6,8 @@
 
 ## 实例
 
-[在线预览](https://phoebecodespace.github.io/vue-d3-tree/)
-[动图预览](https://github.com/phoebeCodeSpace/vue-d3-tree/blob/master/examples/assets/demo.gif)
+- [在线预览](https://phoebecodespace.github.io/vue-d3-tree/)
+- [动图预览](https://github.com/phoebeCodeSpace/vue-d3-tree/blob/master/examples/assets/demo.gif)
 
 ## 实现功能
 
@@ -55,7 +55,7 @@ deepFactor | 节点间距离，控制父子级间的节点距离（⚠️ orient
 
 参数 | 说明 | 默认值 | 类型
 ---|---|---|---
-pathFunc | 连接样式，可选值为 `straight` 直角 / `diagonal` 曲线 / `fish` 鱼钩线 | `diagonal` 或自定义方法，自定义方法参数 `linkData`、`start`、`end` |  String / Function
+pathFunc | 连接样式，可选值为 `straight` 直角 / `diagonal` 曲线 / `fish` 鱼钩线 或 自定义方法，自定义方法参数 `linkData`、`start`、`end` | `diagonal` |  String / Function
 
 ## 使用方法
 
