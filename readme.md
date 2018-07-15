@@ -4,6 +4,11 @@
 
 - IE 不兼容
 
+## 实例
+
+[在线实例](https://phoebecodespace.github.io/vue-d3-tree/)
+[]()
+
 ## 实现功能
 
 ### Tree 功能
@@ -50,21 +55,7 @@ deepFactor | 节点间距离，控制父子级间的节点距离（⚠️ orient
 
 参数 | 说明 | 默认值 | 类型
 ---|---|---|---
-pathFunc | 连接样式，可选值为 `straight` 直角 / `diagonal` 曲线 / `fish` 鱼钩线 | `diagonal` |  String / Function
-
-## scope 格式
-
-``` json
-NODE {
-  children: [],
-  data: {},
-  depth:0,
-  height:1,
-  parent:null,
-  x:0,
-  y:0
-}
-```
+pathFunc | 连接样式，可选值为 `straight` 直角 / `diagonal` 曲线 / `fish` 鱼钩线 | `diagonal` 或自定义方法，自定义方法参数 `linkData`、`start`、`end` |  String / Function
 
 ## 使用方法
 
@@ -80,4 +71,18 @@ NODE {
       </div>
   </template>
 </Tree>
+```
+
+## scope 格式
+
+``` json
+NODE {
+  children: [],   # 子节点集合
+  data: {},       # 节点数据
+  depth:0,        # 节点深度（层级）
+  height:1,
+  parent:null,    # 节点父级
+  x:0,            # 几点坐标x（translate前）
+  y:0             # 几点坐标y（translate前）
+}
 ```
